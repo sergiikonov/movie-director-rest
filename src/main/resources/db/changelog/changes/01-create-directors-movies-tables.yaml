@@ -1,0 +1,71 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_directors
+      author: sergii
+      changes:
+        - createTable:
+            tableName: directors
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+
+  - changeSet:
+      id: create_movies
+      author: sergii
+      changes:
+        - createTable:
+            tableName: movies
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: title
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: release_year
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: genre
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: director_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            baseColumnNames: director_id
+            baseTableName: movies
+            constraintName: fk_movie_director
+            referencedColumnNames: id
+            referencedTableName: directors
+            onDelete: CASCADE
+
+        - createIndex:
+            indexName: idx_movie_director_id
+            tableName: movies
+            columns:
+              - column:
+                  name: director_id
