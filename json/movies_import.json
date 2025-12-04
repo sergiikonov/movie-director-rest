@@ -1,0 +1,38 @@
+[
+  {
+    "title": "Inception",
+    "releaseYear": 2010,
+    "genre": "SCI_FI",
+    "directorId": 1
+  },
+  {
+    "title": "Interstellar",
+    "releaseYear": 2014,
+    "genre": "SCI_FI",
+    "directorId": 1
+  },
+  {
+    "title": "Pulp Fiction",
+    "releaseYear": 1994,
+    "genre": "DRAMA",
+    "directorId": 2
+  },
+  {
+    "title": "Kill Bill: Vol. 1",
+    "releaseYear": 2003,
+    "genre": "ACTION",
+    "directorId": 2
+  },
+  {
+    "title": "Barbie",
+    "releaseYear": 2023,
+    "genre": "COMEDY",
+    "directorId": 4
+  },
+  {
+    "title": "Invalid Movie (Director Missing)",
+    "releaseYear": 2020,
+    "genre": "DRAMA",
+    "directorId": 99
+  }
+]
