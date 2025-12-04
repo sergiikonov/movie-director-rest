@@ -31,14 +31,20 @@ The application is built using Maven.
 Before running, create a database named **_rest_service_** or something else and update _src/main/resources/application.properties_ if your credentials different from the defaults (_postgres/root_).
 
 ```sql
-    CREATE DATABASE rest_service;
+CREATE DATABASE rest_service;
 ```
 
 **Execution Command**
 ```
 mvn spring-boot:run
 ```
+### 🗄️ Database Initialization
+Upon the first launch, **Liquibase** will automatically:
+1. Create the necessary tables (`movies`, `directors`).
+2. **Seed the database** with initial data for Directors (IDs 1-4) so you can start adding movies immediately.
+
 Once started, the server will be available at http://localhost:8080.
+
 |URL|	Description|
 | ------------- |:-------------:|
 |localhost:8080/swagger-ui/index.html#/|Interactive API Documentation (Swagger UI)|
@@ -78,7 +84,7 @@ Once started, the server will be available at http://localhost:8080.
 ### 🔍 Additional abilities
 
 #### 1. Filtration and pagination
-**POST** `/api/movie/_list`
+**Endpoint:** `POST /api/movie/_list`
 body of request (all fields are optional):
 ```json
 {
@@ -90,15 +96,15 @@ body of request (all fields are optional):
 }
 ```
 #### 2. Report generation (CSV)
-**POST** `/api/movie/_report` tooks all filters, such a __list_. Returns _.csv_ for download.
+**Endpoint:** `POST /api/movie/_report` tooks all filters, such a __list_. Returns _.csv_ for download.
 #### Output fragment of File _movies_report.csv:_
 ```csv
 ID,Title,Year,Genre,Director
 1,"Oppenheimer",2023,DRAMA,"Christopher Nolan"
 2,"Interstellar",2014,SCI_FI,"Christopher Nolan"
 ```
-#### 3. Import files
-**POST** `/api/movie/upload` tooks file (multipart/form-data, key=file) from JSON array:
+#### 3. Import Movies (Batch)
+**Endpoint:** `POST /api/movie/upload` tooks file (multipart/form-data, key=file) from JSON array:
 ```json
 [
   {
@@ -108,13 +114,24 @@ ID,Title,Year,Genre,Director
     "directorId": 1
   },
   {
-    "title": "The Godfather",
-    "releaseYear": 1972,
-    "genre": "DRAMA",
-    "directorId": 2
+    "title": "Interstellar",
+    "releaseYear": 2014,
+    "genre": "SCI_FI",
+    "directorId": 1
   }
 ]
 ```
+A sample file is included in the root of the repository (`json/movies_import.json`). It contains test data fully compatible with the pre-seeded directors.
+
+**Usage:** Upload this file via Postman or Swagger UI.
+**Expected Result:**
+```json
+{
+  "successCount": 5,
+  "failedCount": 1
+}
+```
+
 ## 📬 Postman Collection
 For convenient manual testing and exploring of endpoints, a complete Postman collection is available. It includes pre-configured requests for all implemented features (CRUD, Upload, Reports).
 

@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: create_directors
+      id: create-directors
       author: sergii
       changes:
         - createTable:
@@ -21,7 +21,7 @@ databaseChangeLog:
                     unique: true
 
   - changeSet:
-      id: create_movies
+      id: create-movies
       author: sergii
       changes:
         - createTable:
@@ -69,3 +69,28 @@ databaseChangeLog:
             columns:
               - column:
                   name: director_id
+
+  - changeSet:
+      id: add 4 directors
+      author: sergii
+      changes:
+        - insert:
+            tableName: directors
+            columns:
+              - column: {name: id, valueNumeric: 1}
+              - column: {name: name, value: "Christopher Nolan"}
+        - insert:
+            tableName: directors
+            columns:
+              - column: {name: id, valueNumeric: 2}
+              - column: {name: name, value: "Quentin Tarantino"}
+        - insert:
+            tableName: directors
+            columns:
+              - column: {name: id, valueNumeric: 3}
+              - column: {name: name, value: "Martin Scorsese"}
+        - insert:
+            tableName: directors
+            columns:
+              - column: {name: id, valueNumeric: 4}
+              - column: {name: name, value: "Greta Gerwig"}
